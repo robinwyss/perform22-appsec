@@ -1,0 +1,3 @@
+image: docker.io/robinwyss/simplenodeservice:1.0.1
+keptn_project: keptn05
+keptn_service: simplenode
