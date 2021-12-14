@@ -78,8 +78,8 @@ helm repo add gitea-charts https://dl.gitea.io/charts/
 helm install gitea gitea-charts/gitea -f gitea-values-gen.yaml --namespace gitea
 GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')
 
-echo "Cleanup Gitea install files"
-rm -f gitea-values-gen.yaml
+#echo "Cleanup Gitea install files"
+#rm -f gitea-values-gen.yaml
 
 echo "Get Gitea token"
 GIT_TOKEN=$(curl -v --user labuser:!Perform2022@ \
