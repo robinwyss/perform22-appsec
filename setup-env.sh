@@ -49,6 +49,9 @@ echo "Installing Dynatrace Operator"
 # Install Dynatrace Operator
 wget https://github.com/dynatrace/dynatrace-operator/releases/latest/download/install.sh -O install.sh && sh ./install.sh --api-url "${DT_TENANT}/api" --api-token $DT_API_TOKEN --paas-token $DT_PAAS_TOKEN --cluster-name "keptn-appsec"
 
+echo "Cleanup Dynatrace Operator installer"
+rm -f install.sh
+
 echo "Configure Dynatrace Service in Keptn"
 # Configure Dynatrace in keptn
 keptn create secret dynatrace --scope=dynatrace-service --from-literal="DT_TENANT=$DT_TENANT" --from-literal="DT_API_TOKEN=$DT_API_TOKEN"
@@ -72,8 +75,11 @@ echo "Install Gitea"
  # Install gitea
 kubectl create namespace gitea
 helm repo add gitea-charts https://dl.gitea.io/charts/
-helm install gitea gitea-charts/gitea -f ./gitea/helm/gitea-values-gen.yaml --namespace gitea
+helm install gitea gitea-charts/gitea -f gitea-values-gen.yaml --namespace gitea
 GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')
+
+echo "Cleanup Gitea install files"
+rm -f gitea-values-gen.yaml
 
 echo "Get Gitea token"
 GIT_TOKEN=$(curl -v --user labuser:!Perform2022@ \
