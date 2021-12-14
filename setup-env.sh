@@ -64,7 +64,8 @@ sed -e 's~domain.placeholder~'"$GIT_DOMAIN"'~' \
 
  # Install gitea
 kubectl create namespace gitea
-helm install --values ./gitea/helm/gitea-values-gen.yaml gitea gitea-charts/gitea -n gitea
+helm repo add gitea-charts https://dl.gitea.io/charts/
+helm install gitea gitea-charts/gitea -f ./gitea/helm/gitea-values-gen.yaml --namespace gitea
 GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')
 
 
