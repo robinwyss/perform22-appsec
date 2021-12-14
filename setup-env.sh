@@ -34,7 +34,7 @@ mv monaco /usr/local/bin/
 echo "Installing Istio"
 # Install Istio 
 curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$ISTIO_VERSION TARGET_ARCH=x86_64 sh -
-istio-$ISTIO_VERSION/bin/istioctl install
+yes | istio-$ISTIO_VERSION/bin/istioctl install
 
 echo "Installing Keptn"
 # Install keptn
