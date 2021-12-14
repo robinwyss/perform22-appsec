@@ -31,6 +31,11 @@ curl -L https://github.com/dynatrace-oss/dynatrace-monitoring-as-code/releases/d
 chmod +x monaco
 mv monaco /usr/local/bin/
 
+echo "Installing Istio"
+# Install Istio 
+curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$ISTIO_VERSION TARGET_ARCH=x86_64 sh -
+istio-$ISTIO_VERSION/bin/istioctl install
+
 echo "Installing Keptn"
 # Install keptn
 curl -sL https://get.keptn.sh | sudo -E bash
@@ -39,11 +44,6 @@ KEPTN_ENDPOINT=http://$(kubectl get svc -n keptn api-gateway-nginx -ojsonpath='{
 KEPTN_API_TOKEN=$(kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.keptn-api-token}' | base64 --decode)
 KEPTN_BRIDGE_URL=http://$(kubectl get svc -n keptn api-gateway-nginx -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')/bridge
 keptn auth --endpoint=$KEPTN_ENDPOINT --api-token=$KEPTN_API_TOKEN
-
-echo "Installing Istio"
-# Install Istio 
-curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$ISTIO_VERSION TARGET_ARCH=x86_64 sh -
-istio-$ISTIO_VERSION/bin/istioctl install
 
 echo "Installing Dynatrace Operator"
 # Install Dynatrace Operator
