@@ -6,6 +6,8 @@ KEPTN_PROJECT_NAME=
 ISTIO_VERSION=1.12.0
 
 GIT_USER=labuser
+GIT_PASSWORD=!Perform2022@
+GIT_DOMAIN=nip.io
 GIT_REPO=keptn
 
 # Check for environment variables
@@ -54,13 +56,20 @@ helm upgrade --install dynatrace-service\
  --set dynatraceService.config.generateDashboards=true\
  --set dynatraceService.config.generateMetricEvents=true
 
+# setup gitea helm yaml
+sed -e 's~domain.placeholder~'"$GIT_DOMAIN"'~' \
+    -e 's~GIT_USER.placeholder~'"$GIT_USER"'~' \
+    -e 's~GIT_PASSWORD.placeholder~'"$GIT_PASSWORD"'~' \
+    ./gitea/helm/gitea-values.yaml > gitea-values-gen.yaml
 
  # Install gitea
 kubectl create namespace gitea
-helm install --values gitea-values.yaml gitea gitea-charts/gitea -n gitea
+helm install --values ./gitea/helm/gitea-values-gen.yaml gitea gitea-charts/gitea -n gitea
 GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')
 
-GIT_TOKEN=$(curl -v --user labuser:perform22HOT \
+
+
+GIT_TOKEN=$(curl -v --user labuser:!Perform2022@ \
     -X POST "$GIT_URL/api/v1/users/labuser/tokens" \
     -H "accept: application/json" -H "Content-Type: application/json; charset=utf-8" \
     -d "{ \"name\": \"API_TOKEN\" }" | jq -r '.sha1')
