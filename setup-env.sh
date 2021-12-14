@@ -82,14 +82,8 @@ GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.load
 #rm -f gitea-values-gen.yaml
 
 echo "Get Gitea token"
-GIT_TOKEN=$(curl -v --user labuser:!Perform2022@ \
-    -X POST "$GIT_URL/api/v1/users/labuser/tokens" \
-    -H "accept: application/json" -H "Content-Type: application/json; charset=utf-8" \
-    -d "{ \"name\": \"API_TOKEN\" }" | jq -r '.sha1')
-curl -X POST "$GIT_URL/api/v1/user/repos" \
-    -H "accept: application/json" -H "Content-Type: application/json" \
-    -H "Authorization:token $GIT_TOKEN" \
-    -d "{ \"auto_init\": false, \"default_branch\": \"main\", \"name\": \"$GIT_REPO\", \"private\": false}"
+GIT_TOKEN=$(curl -v --user labuser:!Perform2022@ -X POST "$GIT_URL/api/v1/users/labuser/tokens" -H "accept: application/json" -H "Content-Type: application/json; charset=utf-8" -d "{ \"name\": \"API_TOKEN\" }" | jq -r '.sha1')
+curl -X POST "$GIT_URL/api/v1/user/repos" -H "accept: application/json" -H "Content-Type: application/json" -H "Authorization:token $GIT_TOKEN" -d "{ \"auto_init\": false, \"default_branch\": \"main\", \"name\": \"$GIT_REPO\", \"private\": false}"
 
 echo "Create Keptn Project"
 # create keptn project
