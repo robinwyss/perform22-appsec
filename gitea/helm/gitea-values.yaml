@@ -16,7 +16,7 @@ imagePullSecrets: []
 service:
   http:
     type: LoadBalancer
-    port: 3000
+    port: 80
   ssh:
     type: ClusterIP
     port: 22

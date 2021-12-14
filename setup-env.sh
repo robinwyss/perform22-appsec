@@ -6,7 +6,7 @@ KEPTN_PROJECT_NAME=
 ISTIO_VERSION=1.12.0
 
 GIT_USER=labuser
-GIT_PASSWORD=!Perform2022@
+GIT_PASSWORD=Perform2022
 GIT_DOMAIN=nip.io
 GIT_REPO=keptn
 
@@ -40,6 +40,10 @@ echo "Installing Keptn"
 # Install keptn
 curl -sL https://get.keptn.sh | sudo -E bash
 yes | keptn install --endpoint-service-type=LoadBalancer --use-case=continuous-delivery
+
+echo "Wait 1 minute to ensure Ingress is created"
+wait 1m 
+
 KEPTN_ENDPOINT=http://$(kubectl get svc -n keptn api-gateway-nginx -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')/api
 KEPTN_API_TOKEN=$(kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.keptn-api-token}' | base64 --decode)
 KEPTN_BRIDGE_URL=http://$(kubectl get svc -n keptn api-gateway-nginx -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')/bridge
@@ -76,13 +80,17 @@ echo "Install Gitea"
 kubectl create namespace gitea
 helm repo add gitea-charts https://dl.gitea.io/charts/
 helm install gitea gitea-charts/gitea -f gitea-values-gen.yaml --namespace gitea
+
+echo "Wait 1 minute to ensure Ingress is created"
+wait 1m 
+
 GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')
 
 #echo "Cleanup Gitea install files"
 #rm -f gitea-values-gen.yaml
 
 echo "Get Gitea token"
-GIT_TOKEN=$(curl -v --user labuser:!Perform2022@ -X POST "$GIT_URL/api/v1/users/labuser/tokens" -H "accept: application/json" -H "Content-Type: application/json; charset=utf-8" -d "{ \"name\": \"API_TOKEN\" }" | jq -r '.sha1')
+GIT_TOKEN=$(curl -v --user labuser:Perform2022 -X POST "$GIT_URL/api/v1/users/labuser/tokens" -H "accept: application/json" -H "Content-Type: application/json; charset=utf-8" -d "{ \"name\": \"API_TOKEN\" }" | jq -r '.sha1')
 curl -X POST "$GIT_URL/api/v1/user/repos" -H "accept: application/json" -H "Content-Type: application/json" -H "Authorization:token $GIT_TOKEN" -d "{ \"auto_init\": false, \"default_branch\": \"main\", \"name\": \"$GIT_REPO\", \"private\": false}"
 
 echo "Create Keptn Project"
