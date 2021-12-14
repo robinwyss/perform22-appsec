@@ -42,8 +42,8 @@ keptn auth --endpoint=$KEPTN_ENDPOINT --api-token=$KEPTN_API_TOKEN
 
 echo "Installing Istio"
 # Install Istio 
-curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$KEPTN_DYNATRACE_SERVICE_VERSION TARGET_ARCH=x86_64 sh -
-istio-$KEPTN_DYNATRACE_SERVICE_VERSION/bin/istioctl install
+curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$ISTIO_VERSION TARGET_ARCH=x86_64 sh -
+istio-$ISTIO_VERSION/bin/istioctl install
 
 echo "Installing Dynatrace Operator"
 # Install Dynatrace Operator
