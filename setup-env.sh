@@ -68,18 +68,11 @@ helm upgrade --install dynatrace-service\
  --set dynatraceService.config.generateDashboards=true\
  --set dynatraceService.config.generateMetricEvents=true
 
-echo "Setup Gitea"
-# setup gitea helm yaml
-sed -e 's~domain.placeholder~'"$GIT_DOMAIN"'~' \
-    -e 's~GIT_USER.placeholder~'"$GIT_USER"'~' \
-    -e 's~GIT_PASSWORD.placeholder~'"$GIT_PASSWORD"'~' \
-    ./gitea/helm/gitea-values.yaml > gitea-values-gen.yaml
-
 echo "Install Gitea"
  # Install gitea
 kubectl create namespace gitea
 helm repo add gitea-charts https://dl.gitea.io/charts/
-helm install gitea gitea-charts/gitea -f gitea-values-gen.yaml --namespace gitea
+helm install gitea gitea-charts/gitea -f gitea-values-live.yaml --namespace gitea
 
 echo "Wait 1 minute to ensure Ingress is created"
 sleep 1m 
