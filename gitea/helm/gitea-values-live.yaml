@@ -153,7 +153,7 @@ gitea:
       #  additionalLabels:
       #    prometheus-release: prom1
 
-  ldap: []
+  ldap: {}
     # - name: "LDAP 1"
     #  existingSecret:
     #  securityProtocol:
