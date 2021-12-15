@@ -84,7 +84,7 @@ helm install gitea gitea-charts/gitea -f gitea-values-gen.yaml --namespace gitea
 echo "Wait 1 minute to ensure Ingress is created"
 sleep 1m 
 
-GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')
+GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}'):3000
 
 #echo "Cleanup Gitea install files"
 #rm -f gitea-values-gen.yaml
