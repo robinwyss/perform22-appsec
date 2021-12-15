@@ -10,6 +10,8 @@ GIT_PASSWORD=Perform2022
 GIT_DOMAIN=nip.io
 GIT_REPO=keptn
 
+export GIT_REPO=keptn
+
 # Check for environment variables
 if [[ ! -v DT_TENANT ]]; then
     echo "DT_TENANT is not set"
@@ -77,13 +79,13 @@ helm install gitea gitea-charts/gitea -f ./gitea/helm/gitea-values-live.yaml --n
 echo "Wait 1 minute to ensure Ingress is created"
 sleep 1m 
 
-GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}'):3000
+export GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}'):3000
 
 #echo "Cleanup Gitea install files"
 #rm -f gitea-values-gen.yaml
 
 echo "Get Gitea token"
-GIT_TOKEN=$(curl -v --user labuser:Perform2022 -X POST "$GIT_URL/api/v1/users/labuser/tokens" -H "accept: application/json" -H "Content-Type: application/json; charset=utf-8" -d "{ \"name\": \"API_TOKEN\" }" | jq -r '.sha1')
+export GIT_TOKEN=$(curl -v --user dynatrace:dynatrace -X POST "$GIT_URL/api/v1/users/labuser/tokens" -H "accept: application/json" -H "Content-Type: application/json; charset=utf-8" -d "{ \"name\": \"API_TOKEN\" }" | jq -r '.sha1')
 curl -X POST "$GIT_URL/api/v1/user/repos" -H "accept: application/json" -H "Content-Type: application/json" -H "Authorization:token $GIT_TOKEN" -d "{ \"auto_init\": false, \"default_branch\": \"main\", \"name\": \"$GIT_REPO\", \"private\": false}"
 
 echo "Create Keptn Project"
