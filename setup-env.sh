@@ -72,7 +72,7 @@ echo "Install Gitea"
  # Install gitea
 kubectl create namespace gitea
 helm repo add gitea-charts https://dl.gitea.io/charts/
-helm install gitea gitea-charts/gitea -f gitea-values-live.yaml --namespace gitea
+helm install gitea gitea-charts/gitea -f ./gitea/helm/gitea-values-live.yaml --namespace gitea
 
 echo "Wait 1 minute to ensure Ingress is created"
 sleep 1m 
