@@ -80,7 +80,7 @@ helm repo add gitea-charts https://dl.gitea.io/charts/
 helm install gitea gitea-charts/gitea -f ./gitea/helm/gitea-values-live.yaml --namespace gitea
 
 echo "Wait 1 minute to ensure Ingress is created"
-sleep 1m 
+sleep 2m 
 
 export GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}'):3000
 
@@ -93,7 +93,7 @@ curl -X POST "$GIT_URL/api/v1/user/repos" -H "accept: application/json" -H "Cont
 
 echo "Create Keptn Project"
 # create keptn project
-keptn create project $KEPTN_PROJECT_NAME  --shipyard=./shipyard.yaml --git-user=$GIT_USER --git-token=$GIT_TOKEN --git-remote-url=http://$GIT_URL/$GIT_USER/$GIT_REPO.git
+keptn create project $KEPTN_PROJECT_NAME  --shipyard=./keptn/shipyard.yaml --git-user=$GIT_USER --git-token=$GIT_TOKEN --git-remote-url=http://$GIT_URL/$GIT_USER/$GIT_REPO.git
 
 echo "Create simplenode Service"
 keptn create service simplenode --project=$KEPTN_PROJECT_NAME
