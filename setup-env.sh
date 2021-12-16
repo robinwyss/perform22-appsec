@@ -43,6 +43,9 @@ echo "Installing Keptn"
 curl -sL https://get.keptn.sh | sudo -E bash
 yes | keptn install --endpoint-service-type=LoadBalancer --use-case=continuous-delivery
 
+# create archive for simplenode chart
+tar -C keptn/ -czvf simplenode.tgz charts/
+
 echo "Wait 1 minute to ensure Ingress is created"
 sleep 1m 
 
