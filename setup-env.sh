@@ -99,7 +99,7 @@ echo "Create simplenode Service"
 keptn create service simplenode --project=$KEPTN_PROJECT_NAME
 # add helm chart for service
 echo "Add simplenode charts"
-keptn add-resource --project=$KEPTN_PROJECT_NAME --service=simplenode --resource=./keptn/simplenode.tgz --resourceUri=helm/simplenode.tgz --all-stages
+keptn add-resource --project=$KEPTN_PROJECT_NAME --service=simplenode --resource=./simplenode.tgz --resourceUri=helm/simplenode.tgz --all-stages
 # add jmx config
 echo "Add JMeter test"
 keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simplenode --resource=./keptn/jmeter/load.jmx --resourceUri=jmeter/load.jmx
