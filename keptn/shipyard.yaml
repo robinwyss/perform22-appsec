@@ -18,12 +18,12 @@ spec:
             - name: "release"
         - name: rollback
           triggeredOn:
-            - event: staging.delivery.finished
-                selector:
-                  match:
-                    result: "fail"
+            - event: "staging.delivery.finished"
+              selector:
+                match:
+                  result: "fail"
           tasks:
-            - name: rollback
+            - name: "rollback"
     - name: "production"
       sequences:
         - name: "delivery"
