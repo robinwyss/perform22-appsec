@@ -47,7 +47,7 @@ yes | keptn install --endpoint-service-type=LoadBalancer --use-case=continuous-d
 tar -C keptn/ -czvf simplenode.tgz charts/
 
 echo "Wait 1 minute to ensure Ingress is created"
-sleep 1m 
+sleep 2m 
 
 KEPTN_ENDPOINT=http://$(kubectl get svc -n keptn api-gateway-nginx -ojsonpath='{.status.loadBalancer.ingress[0].hostname}')/api
 KEPTN_API_TOKEN=$(kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.keptn-api-token}' | base64 --decode)
@@ -80,7 +80,7 @@ helm repo add gitea-charts https://dl.gitea.io/charts/
 helm install gitea gitea-charts/gitea -f ./gitea/helm/gitea-values-live.yaml --namespace gitea
 
 echo "Wait 1 minute to ensure Ingress is created"
-sleep 2m 
+sleep 5m 
 
 export GIT_URL=$(kubectl get svc --namespace gitea gitea-http -ojsonpath='{.status.loadBalancer.ingress[0].hostname}'):3000
 
