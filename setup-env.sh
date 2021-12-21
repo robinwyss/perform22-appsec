@@ -2,8 +2,10 @@
 
 # Configuration
 KEPTN_DYNATRACE_SERVICE_VERSION=0.18.1
+KEPTN_DYNATRACE_SERVICE_SLI_VERSION=0.12.1
 KEPTN_PROJECT_NAME=appsec
 ISTIO_VERSION=1.12.0
+
 
 GIT_USER=dynatrace
 GIT_PASSWORD=dynatrace
@@ -72,6 +74,9 @@ helm upgrade --install dynatrace-service\
  --set dynatraceService.config.generateManagementZones=true\
  --set dynatraceService.config.generateDashboards=true\
  --set dynatraceService.config.generateMetricEvents=true
+
+# Install Dynatrace SLI Service
+helm upgrade --install  dynatrace-sli-service -n keptn https://github.com/keptn-contrib/dynatrace-sli-service/releases/download/$KEPTN_DYNATRACE_SERVICE_SLI_VERSION/dynatrace-sli-service-$KEPTN_DYNATRACE_SERVICE_SLI_VERSION.tgz
 
 echo "Install Gitea"
  # Install gitea
