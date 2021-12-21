@@ -1,10 +1,10 @@
 ---
 spec_version: '1.0'
 indicators:
-  throughput_svc: "metricSelector=builtin:service.requestCount.total:merge(\"dt.entity.service\"):sum&entitySelector=tag($SERVICE),type(SERVICE)"
-  error_rate_svc: "metricSelector=builtin:service.errors.total.rate:merge(\"dt.entity.service\"):avg&entitySelector=tag($SERVICE),type(SERVICE)"
-  rt_svc_p50:     "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(50)&entitySelector=tag($SERVICE),type(SERVICE)"
-  rt_svc_p90:     "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(90)&entitySelector=tag($SERVICE),type(SERVICE)"
-  rt_svc_p95:     "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(95)&entitySelector=tag($SERVICE),type(SERVICE)"
+  throughput_svc: "metricSelector=builtin:service.requestCount.total:merge(\"dt.entity.service\"):sum&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
+  error_rate_svc: "metricSelector=builtin:service.errors.total.rate:merge(\"dt.entity.service\"):avg&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
+  rt_svc_p50:     "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(50)&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
+  rt_svc_p90:     "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(90)&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
+  rt_svc_p95:     "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(95)&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
   critical_vuln:  "metricSelector=builtin:security.securityProblem.open.new.global:filter(and(eq(\"Risk Level\",CRITICAL)))"
   high_vuln:      "metricSelector=builtin:security.securityProblem.open.new.global:filter(and(eq(\"Risk Level\",HIGH)))"
