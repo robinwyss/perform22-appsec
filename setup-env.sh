@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-KEPTN_DYNATRACE_SERVICE_VERSION=0.18.1
+KEPTN_DYNATRACE_SERVICE_VERSION=0.19.0
 KEPTN_DYNATRACE_SERVICE_SLI_VERSION=0.12.1
 KEPTN_PROJECT_NAME=appsec
 ISTIO_VERSION=1.12.0
@@ -24,7 +24,6 @@ fi
 if [[ ! -v DT_PAAS_TOKEN ]]; then
     echo "DT_PAAS_TOKEN is not set"
 fi
-
 
 #TODO how to install helm without prompt
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
@@ -70,13 +69,10 @@ helm upgrade --install dynatrace-service\
  -n keptn https://github.com/keptn-contrib/dynatrace-service/releases/download/$KEPTN_DYNATRACE_SERVICE_VERSION/dynatrace-service-$KEPTN_DYNATRACE_SERVICE_VERSION.tgz\
  --set dynatraceService.config.keptnApiUrl=$KEPTN_ENDPOINT --set dynatraceService.config.keptnBridgeUrl=$KEPTN_BRIDGE_URL\
  --set dynatraceService.config.generateTaggingRules=true\
- --set dynatraceService.config.generateProblemNotifications=true\
+ --set dynatraceService.config.generateProblemNotifications=false\
  --set dynatraceService.config.generateManagementZones=true\
  --set dynatraceService.config.generateDashboards=true\
  --set dynatraceService.config.generateMetricEvents=true
-
-# Install Dynatrace SLI Service
-helm upgrade --install  dynatrace-sli-service -n keptn https://github.com/keptn-contrib/dynatrace-sli-service/releases/download/$KEPTN_DYNATRACE_SERVICE_SLI_VERSION/dynatrace-sli-service-$KEPTN_DYNATRACE_SERVICE_SLI_VERSION.tgz
 
 echo "Install Gitea"
  # Install gitea
@@ -100,6 +96,16 @@ echo "Create Keptn Project"
 # create keptn project
 keptn create project $KEPTN_PROJECT_NAME  --shipyard=./keptn/shipyard.yaml --git-user=$GIT_USER --git-token=$GIT_TOKEN --git-remote-url=http://$GIT_URL/$GIT_USER/$GIT_REPO.git
 
+# confiure dynatrace
+keptn configure monitoring dynatrace --project=appsec
+
+# configure Dynatrace service
+keptn add-resource --project=appsec --stage=staging --service=simplenode --resource=./keptn/dynatrace/dynatrace.conf.yaml --resourceUri=dynatrace/dynatrace.conf.yaml
+# add sli and slo config
+#keptn add-resource --project=appsec --stage=staging --service=simplenode --resource=./keptn/dynatrace/sli.yaml --resourceUri=dynatrace/sli.yaml
+#keptn add-resource --project=appsec --stage=staging --resource=./keptn/slo.yaml --resourceUri=slo.yaml
+
+
 echo "Create simplenode Service"
 keptn create service simplenode --project=$KEPTN_PROJECT_NAME
 # add helm chart for service
@@ -111,4 +117,3 @@ keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simpl
 # deploy initial version
 echo "Deploy simplenode v1"
 keptn trigger delivery --project=$KEPTN_PROJECT_NAME --service=simplenode  --image=docker.io/robinwyss/simplenodeservice --tag=1.0.1
-

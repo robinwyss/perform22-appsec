@@ -1,10 +1,12 @@
 ---
 spec_version: '1.0'
 indicators:
-  throughput_svc: "metricSelector=builtin:service.requestCount.total:merge(\"dt.entity.service\"):sum&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
-  error_rate_svc: "metricSelector=builtin:service.errors.total.rate:merge(\"dt.entity.service\"):avg&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
-  rt_svc_p50:     "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(50)&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
-  rt_svc_p90:     "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(90)&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
-  rt_svc_p95:     "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(95)&entitySelector=tag(~\"[Environment]keptn_service:$SERVICE~\"),type(SERVICE)"
-  critical_vuln:  "metricSelector=builtin:security.securityProblem.open.new.global:filter(and(eq(\"Risk Level\",CRITICAL)))"
-  high_vuln:      "metricSelector=builtin:security.securityProblem.open.new.global:filter(and(eq(\"Risk Level\",HIGH)))"
+  throughput: "metricSelector=builtin:service.requestCount.total:merge(\"dt.entity.service\"):sum&entitySelector=type(SERVICE),tag(keptn_project:$PROJECT),tag(keptn_stage:$STAGE),tag(keptn_service:$SERVICE),tag(keptn_deployment:$DEPLOYMENT)"
+  error_rate: "metricSelector=builtin:service.errors.total.count:merge(\"dt.entity.service\"):avg&entitySelector=type(SERVICE),tag(keptn_project:$PROJECT),tag(keptn_stage:$STAGE),tag(keptn_service:$SERVICE),tag(keptn_deployment:$DEPLOYMENT)"
+  response_time_p50: "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(50)&entitySelector=type(SERVICE),tag(keptn_project:$PROJECT),tag(keptn_stage:$STAGE),tag(keptn_service:$SERVICE),tag(keptn_deployment:$DEPLOYMENT)"
+  response_time_p90: "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(90)&entitySelector=type(SERVICE),tag(keptn_project:$PROJECT),tag(keptn_stage:$STAGE),tag(keptn_service:$SERVICE),tag(keptn_deployment:$DEPLOYMENT)"
+  response_time_p95: "metricSelector=builtin:service.response.time:merge(\"dt.entity.service\"):percentile(95)&entitySelector=type(SERVICE),tag(keptn_project:$PROJECT),tag(keptn_stage:$STAGE),tag(keptn_service:$SERVICE),tag(keptn_deployment:$DEPLOYMENT)"
+  vuln_critical: "SECPV2;securityProblemSelector=riskLevel(CRITICAL),pgiTags(\"keptn_project:$PROJECT\",\"keptn_stage:$STAGE\",\"keptn_service:$SERVICE\",\"keptn_deployment:$DEPLOYMENT\")"
+  vuln_high: "SECPV2;securityProblemSelector=riskLevel(HIGH),pgiTags(\"keptn_project:$PROJECT\",\"keptn_stage:$STAGE\",\"keptn_service:$SERVICE\",\"keptn_deployment:$DEPLOYMENT\")"
+  vuln_medium: "SECPV2;securityProblemSelector=riskLevel(MEDIUM),pgiTags(\"keptn_project:$PROJECT\", \"keptn_stage:$STAGE\",\"keptn_service:$SERVICE\",\"keptn_deployment:$DEPLOYMENT\")"
+  vuln_low: "SECPV2;securityProblemSelector=riskLevel(LOW),pgiTags(\"keptn_project:$PROJECT\",\"keptn_stage:$STAGE\",\"keptn_service:$SERVICE\",\"keptn_deployment:$DEPLOYMENT\")"
