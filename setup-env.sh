@@ -17,12 +17,15 @@ export GIT_REPO=keptn
 # Check for environment variables
 if [[ ! -v DT_TENANT ]]; then
     echo "DT_TENANT is not set"
+    exit 0
 fi
 if [[ ! -v DT_API_TOKEN ]]; then
     echo "DT_API_TOKEN is not set"
+    exit 0
 fi
 if [[ ! -v DT_PAAS_TOKEN ]]; then
     echo "DT_PAAS_TOKEN is not set"
+    exit 0
 fi
 
 #TODO how to install helm without prompt
