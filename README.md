@@ -7,9 +7,9 @@ This repository contains the scripts and resources required to setup the lab env
 - Dynatrace Environment
 - Dynatrace PaaS Token
 - Dynatrace API Token
-  - Required scope: `entities.read`, `entities.write`, `logs.read`, `metrics.read`, `metrics.write`, `DataExport`, `LogExport`, `ReadConfig`, `WriteConfig`
+  - Required scope: `entities.read`, `entities.write`, `logs.read`, `metrics.read`, `metrics.write`, `DataExport`, `LogExport`, `ReadConfig`, `WriteConfig`, `securityProblems.read`
   - Example curl: 
-    - `curl -X POST "ENVIRONMENT/api/v2/apiTokens" -H "accept: application/json; charset=utf-8" -H "Content-Type: application/json; charset=utf-8" -d "{\"name\":\"keptn\",\"scopes\":[\"entities.read\",\"entities.write\",\"logs.read\",\"metrics.read\",\"metrics.write\",\"DataExport\",\"LogExport\",\"ReadConfig\",\"WriteConfig\"]}" -H "Authorization: Api-Token XXXXXXXX"`
+    - `curl -X POST "ENVIRONMENT/api/v2/apiTokens" -H "accept: application/json; charset=utf-8" -H "Content-Type: application/json; charset=utf-8" -d "{\"name\":\"keptn\",\"scopes\":[\"entities.read\",\"entities.write\",\"logs.read\",\"metrics.read\",\"metrics.write\",\"DataExport\",\"LogExport\",\"ReadConfig\",\"WriteConfig\",\"securityProblems.read\"]}" -H "Authorization: Api-Token XXXXXXXX"`
   - See https://keptn.sh/docs/0.8.x/monitoring/dynatrace/install/
 
 ## Usage
