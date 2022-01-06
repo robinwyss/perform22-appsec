@@ -99,15 +99,13 @@ echo "Create Keptn Project"
 # create keptn project
 keptn create project $KEPTN_PROJECT_NAME  --shipyard=./keptn/shipyard.yaml --git-user=$GIT_USER --git-token=$GIT_TOKEN --git-remote-url=http://$GIT_URL/$GIT_USER/$GIT_REPO.git
 
-# confiure dynatrace
-keptn configure monitoring dynatrace --project=appsec
-
 # configure Dynatrace service
-keptn add-resource --project=appsec --stage=staging --service=simplenode --resource=./keptn/dynatrace/dynatrace.conf.yaml --resourceUri=dynatrace/dynatrace.conf.yaml
-# add sli and slo config
-#keptn add-resource --project=appsec --stage=staging --service=simplenode --resource=./keptn/dynatrace/sli.yaml --resourceUri=dynatrace/sli.yaml
-#keptn add-resource --project=appsec --stage=staging --resource=./keptn/slo.yaml --resourceUri=slo.yaml
+keptn add-resource --project=$KEPTN_PROJECT_NAME --resource=./keptn/dynatrace/dynatrace.conf.yaml --resourceUri=dynatrace/dynatrace.conf.yaml
+keptn configure monitoring dynatrace --project=$KEPTN_PROJECT_NAME
 
+# add sli and slo config
+#keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simplenode --resource=./keptn/dynatrace/sli.yaml --resourceUri=dynatrace/sli.yaml
+#keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --resource=./keptn/slo.yaml --resourceUri=slo.yaml
 
 echo "Create simplenode Service"
 keptn create service simplenode --project=$KEPTN_PROJECT_NAME
