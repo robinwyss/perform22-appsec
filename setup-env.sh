@@ -105,7 +105,7 @@ keptn configure monitoring dynatrace --project=$KEPTN_PROJECT_NAME
 
 # add sli and slo config
 #keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simplenode --resource=./keptn/dynatrace/sli.yaml --resourceUri=dynatrace/sli.yaml
-#keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --resource=./keptn/slo.yaml --resourceUri=slo.yaml
+#keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simplenode --resource=./keptn/slo.yaml --resourceUri=slo.yaml
 
 echo "Create simplenode Service"
 keptn create service simplenode --project=$KEPTN_PROJECT_NAME
@@ -115,6 +115,7 @@ keptn add-resource --project=$KEPTN_PROJECT_NAME --service=simplenode --resource
 # add jmx config
 echo "Add JMeter test"
 keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simplenode --resource=./keptn/jmeter/load.jmx --resourceUri=jmeter/load.jmx
+keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simplenode --resource=./keptn/jmeter/jmeter.conf.yaml --resourceUri=jmeter/jmeter.conf.yaml
 # deploy initial version
 echo "Deploy simplenode v1"
 keptn trigger delivery --project=$KEPTN_PROJECT_NAME --service=simplenode  --image=docker.io/robinwyss/simplenodeservice --tag=1.0.1
