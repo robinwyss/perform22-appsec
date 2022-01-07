@@ -20,3 +20,10 @@ This repository contains the scripts and resources required to setup the lab env
   - `export DT_API_TOKEN=..`
   - `export DT_PAAS_TOKEN=..`
 - Run script `./setup-env.sh`
+
+## Uninstall
+- keptn: `keptn uninstall`
+  - see https://keptn.sh/docs/0.8.x/operate/uninstall/
+- Dynatrace Operator: `kubectl delete -f https://github.com/Dynatrace/dynatrace-operator/releases/latest/download/kubernetes.yaml`
+  - https://www.dynatrace.com/support/help/shortlink/full-stack-dto-k8#uninstall-dynatrace-operator
+- Remove remaining namespaces (removes also gitea and istio): `kubectl delete namespace dynatrace gitea istio-system appsec-production appsec-staging`
