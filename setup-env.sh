@@ -75,6 +75,7 @@ helm upgrade --install dynatrace-service\
  --set dynatraceService.config.generateProblemNotifications=false\
  --set dynatraceService.config.generateManagementZones=true\
  --set dynatraceService.config.generateDashboards=true\
+ --set dynatraceService.config.synchronizeDynatraceServices=false\
  --set dynatraceService.config.generateMetricEvents=true
 
 echo "Install Gitea"
