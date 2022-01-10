@@ -119,7 +119,7 @@ keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simpl
 keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simplenode --resource=./keptn/jmeter/jmeter.conf.yaml --resourceUri=jmeter/jmeter.conf.yaml
 # deploy initial version
 echo "Deploy simplenode v1"
-keptn trigger delivery --project=$KEPTN_PROJECT_NAME --service=simplenode  --image=docker.io/robinwyss/simplenodeservice --tag=1.0.1
+#keptn trigger delivery --project=$KEPTN_PROJECT_NAME --service=simplenode  --image=docker.io/robinwyss/simplenodeservice --tag=1.0.1
 
 #get keptn bridge username and password
 KEPTN_BRIDGE_PW=$(kubectl -n keptn get secret bridge-credentials -o jsonpath="{.data.BASIC_AUTH_PASSWORD}" | base64 --decode)
