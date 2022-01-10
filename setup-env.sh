@@ -130,7 +130,7 @@ cat << EOF
 Installation Complet!
 
 - Dynatrace Tenant: $DT_TENANT
-- Keptn Bridge: $GIT_URL
+- Keptn Bridge: $KEPTN_BRIDGE_URL
   - User: $KEPTN_BRIDGE_USER Password: $KEPTN_BRIDGE_PW
 - Git: $GIT_URL
   - User: $GIT_USER Password: $GIT_PASSWORD
