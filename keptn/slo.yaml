@@ -13,10 +13,6 @@ objectives:
     warning:     # if the response time is below 800ms, the result should be a warning
       - criteria:
           - "<=800"
-  - sli: throughput
-    pass:
-      - criteria:
-        - ">4000"
   - sli: error_rate
     weight: 2
     pass:
@@ -25,14 +21,6 @@ objectives:
     warning:
       - criteria:
           - "<=2%"
-  - sli: response_time_p50
-  - sli: response_time_p90
-    pass:
-      - criteria:
-          - "<=+10%"
-    warning:
-      - criteria:
-          - "<=+10%"
   - sli: vuln_critical
     pass:
       - criteria:
