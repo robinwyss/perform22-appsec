@@ -36,10 +36,8 @@ spec:
           protocol: TCP
           containerPort: 8080
         env:
-        - name: DT_TAGS
-          value: "application={{ $keptn_project }} keptn_project={{ $keptn_project }} keptn_service={{ $keptn_service }} keptn_stage={{ $keptn_stage }}"
         - name: DT_CUSTOM_PROP
-          value: "keptn_project={{ $keptn_project }} keptn_service={{ $keptn_service }} keptn_stage={{ $keptn_stage }} keptn_deployment=Direct release_name={{ .Release.Name }} release_namespace={{ .Release.Namespace }} release_revision={{ .Release.Revision }}"
+          value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
           valueFrom:
             fieldRef:
