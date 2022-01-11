@@ -6,6 +6,7 @@ comparison:
   aggregate_function: avg
 objectives:
   - sli: response_time_p95
+    displayName: "Response time 95%"
     pass:        # pass if (relative change <= 10% AND absolute value is < 500)
       - criteria:
           - "<=+10%" # relative values require a prefixed sign (plus or minus)
@@ -14,6 +15,7 @@ objectives:
       - criteria:
           - "<=800"
   - sli: error_rate
+    displayName: "Error Rate"
     weight: 2
     pass:
       - criteria:
@@ -22,15 +24,33 @@ objectives:
       - criteria:
           - "<=2%"
   - sli: vuln_critical
+    displayName: "Vulnerabilities - Critical"
     pass:
       - criteria:
           - "<=0"
     key_sli: true
   - sli: vuln_high
+    displayName: "Vulnerabilities - High"
     pass:
       - criteria:
           - "<=0"
     key_sli: true
+  - sli: vuln_medium
+    displayName: "Vulnerabilities - Medium"
+    pass:
+      - criteria:
+          - "<=0"
+    warning:
+      - criteria:
+          - ">0"
+  - sli: vuln_low
+    displayName: "Vulnerabilities - Low"
+    pass:
+      - criteria:
+          - "<=0"
+    warning:
+      - criteria:
+          - ">0"
 total_score:
   pass: "90%"
   warning: "75%"
