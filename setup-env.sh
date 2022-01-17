@@ -118,9 +118,12 @@ echo "Add JMeter test"
 keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simplenode --resource=./keptn/jmeter/load.jmx --resourceUri=jmeter/load.jmx
 keptn add-resource --project=$KEPTN_PROJECT_NAME --stage=staging --service=simplenode --resource=./keptn/jmeter/jmeter.conf.yaml --resourceUri=jmeter/jmeter.conf.yaml
 # deploy initial version
-echo "Deploy simplenode v1"
+#echo "Deploy simplenode v1"
 #keptn trigger delivery --project=$KEPTN_PROJECT_NAME --service=simplenode  --image=docker.io/robinwyss/simplenodeservice --tag=1.0.1
 
+echo "Deploy sample petclinic app"
+kubectl create namespace petclinic
+kubectl apply -f demo/petclinic.yaml --namespace petclinic
 #get keptn bridge username and password
 KEPTN_BRIDGE_PW=$(kubectl -n keptn get secret bridge-credentials -o jsonpath="{.data.BASIC_AUTH_PASSWORD}" | base64 --decode)
 KEPTN_BRIDGE_USER=$(kubectl -n keptn get secret bridge-credentials -o jsonpath="{.data.BASIC_AUTH_USERNAME}}" | base64 --decode)
