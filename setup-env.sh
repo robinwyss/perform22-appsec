@@ -128,8 +128,7 @@ kubectl apply -f demo/petclinic.yaml --namespace petclinic
 KEPTN_BRIDGE_PW=$(kubectl -n keptn get secret bridge-credentials -o jsonpath="{.data.BASIC_AUTH_PASSWORD}" | base64 --decode)
 KEPTN_BRIDGE_USER=$(kubectl -n keptn get secret bridge-credentials -o jsonpath="{.data.BASIC_AUTH_USERNAME}}" | base64 --decode)
 
-
-cat << EOF
+cat <<\EOF >>installation.txt
 Installation Complet!
 
 - Dynatrace Tenant: $DT_TENANT
@@ -139,4 +138,5 @@ Installation Complet!
   - User: $GIT_USER Password: $GIT_PASSWORD
 EOF
 
+more installation.txt
 
