@@ -130,14 +130,17 @@ kubectl apply -f demo/petclinic.yaml --namespace petclinic
 KEPTN_BRIDGE_PW=$(kubectl -n keptn get secret bridge-credentials -o jsonpath="{.data.BASIC_AUTH_PASSWORD}" | base64 --decode)
 KEPTN_BRIDGE_USER=$(kubectl -n keptn get secret bridge-credentials -o jsonpath="{.data.BASIC_AUTH_USERNAME}}" | base64 --decode)
 
+PETCLINIC_URL=http://$(kubectl get svc --namespace petclinic petclinic-service -ojsonpath="{.status.loadBalancer.ingress[0].hostname}")
+
 cat <<EOF >>installation.txt
 Installation Complet!
 
 - Dynatrace Tenant: $DT_TENANT
 - Keptn Bridge: $KEPTN_BRIDGE_URL
   - User: $KEPTN_BRIDGE_USER Password: $KEPTN_BRIDGE_PW
-- Git: $GIT_URL
+- Git: http://$GIT_URL
   - User: $GIT_USER Password: $GIT_PASSWORD
+- Petclinic: $PETCLINIC_URL
 EOF
 
 more installation.txt
